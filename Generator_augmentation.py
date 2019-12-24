@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import argparse
 
+
 def image_augmentation(img, ang_range=6, shear_range=3, trans_range=3):
     # Rotation
     ang_rot = np.random.uniform(ang_range) - ang_range / 2
@@ -36,8 +37,8 @@ def image_augmentation(img, ang_range=6, shear_range=3, trans_range=3):
     img = cv2.cvtColor(img, cv2.COLOR_HSV2RGB)
 
     # Blur
-    blur_value = random.randint(0,5) * 2 + 1
-    img = cv2.blur(img,(blur_value, blur_value))
+    blur_value = random.randint(0, 5) * 2 + 1
+    img = cv2.blur(img, (blur_value, blur_value))
 
     return img
 
@@ -140,7 +141,6 @@ class ImageGenerator:
             self.resion_list_g.append(file[0:-4])
             # =========================================================================
 
-
     def Type_1(self, num, save=False):
         number = [cv2.resize(number, (56, 83)) for number in self.Number]
         char = [cv2.resize(char1, (60, 83)) for char1 in self.Char1]
@@ -149,7 +149,7 @@ class ImageGenerator:
             Plate = cv2.resize(self.plate, (520, 110))
             random_width = random.randint(140, 230)
             random_height = random.randint(550, 720)
-            random_R, random_G, random_B = random.randint(0,255), random.randint(0,255), random.randint(0,255)
+            random_R, random_G, random_B = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
             background = np.zeros((random_width, random_height, 3), np.uint8)
             cv2.rectangle(background, (0, 0), (random_height, random_width), (random_R, random_G, random_B), -1)
 
@@ -169,8 +169,8 @@ class ImageGenerator:
             col += 56
 
             # character 3
-            label += self.char_list[i%37]
-            Plate[row:row + 83, col:col + 60, :] = char[i%37]
+            label += self.char_list[i % 37]
+            Plate[row:row + 83, col:col + 60, :] = char[i % 37]
             col += (60 + 36)
 
             # number 4
@@ -199,7 +199,7 @@ class ImageGenerator:
 
             random_w = random.randint(0, random_width - 110)
             random_h = random.randint(0, random_height - 520)
-            background[random_w:110+random_w, random_h:520+random_h, :] = Plate
+            background[random_w:110 + random_w, random_h:520 + random_h, :] = Plate
             background = image_augmentation(background)
 
             if save:
@@ -236,8 +236,8 @@ class ImageGenerator:
             col += 45
 
             # number 3
-            label += self.char_list[i%37]
-            Plate[row + 12:row + 82, col + 2:col + 49 + 2, :] = char[i%37]
+            label += self.char_list[i % 37]
+            Plate[row + 12:row + 82, col + 2:col + 49 + 2, :] = char[i % 37]
             col += 49 + 2
 
             # number 4
@@ -456,8 +456,8 @@ class ImageGenerator:
             col += 60
 
             # character 3
-            label += self.char_list_g[i%37]
-            Plate[row:row + 65, col:col + 60, :] = char[i%37]
+            label += self.char_list_g[i % 37]
+            Plate[row:row + 65, col:col + 60, :] = char[i % 37]
             row, col = 75, 8
 
             # number 4
@@ -465,7 +465,6 @@ class ImageGenerator:
             label += self.number_list_g[rand_int]
             Plate[row:row + 90, col:col + 80, :] = number2[rand_int]
             col += 80
-
 
             # number 5
             rand_int = random.randint(0, 9)
@@ -497,6 +496,7 @@ class ImageGenerator:
                 cv2.waitKey(0)
                 cv2.destroyAllWindows()
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--img_dir", help="save image directory",
                     type=str, default="../CRNN/DB/")
@@ -505,7 +505,6 @@ parser.add_argument("-n", "--num", help="number of image",
 parser.add_argument("-s", "--save", help="save or imshow",
                     type=bool, default=True)
 args = parser.parse_args()
-
 
 img_dir = args.img_dir
 A = ImageGenerator(img_dir)
