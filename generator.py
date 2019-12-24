@@ -28,9 +28,11 @@ with requests.Session() as session:
         image = soup.find('img', class_='img-responsive vcenter')
         image = session.get(image['src'], headers=headers)
 
-        image_name = data['region1'] + ' ' + data['digit2'] + ' ' + data['b1'] + data['b2'] + data['b3'] + '.png'
+        image_name = f"{data['region1']} {data['digit2']} {data['b1']}{data['b2']}{data['b3']}.png"
 
         with open('generated/' + image_name, 'wb') as file:
             for chunk in image.iter_content(chunk_size=1024):
                 if chunk:
                     file.write(chunk)
+
+        print(f'{i}  -  {image_name}')
