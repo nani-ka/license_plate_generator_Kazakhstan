@@ -13,13 +13,13 @@ headers = {
 with requests.Session() as session:
     for i in range(1000):
         data = {
-            'ctype': '6',
-            'digit2': f'{random.randint(0, 999):03}',
+            'ctype': '7',
             'b1': random.choice(ascii_uppercase),
             'b2': random.choice(ascii_uppercase),
-            # 'b3': random.choice(ascii_uppercase),
+            'b3': random.choice(ascii_uppercase),
+            'digit3': f'{random.randint(0, 999):03}',
             'region2': f'{random.randint(0, 17):02}',
-            'fon': '2',
+            'fon': '1',
             'posted': '1'
         }
 
@@ -30,7 +30,7 @@ with requests.Session() as session:
 
         image_name = f"{data['digit2']}{data['b1']}{data['b2']}{data['region2']}.png"
 
-        with open('generated/Двухрядный/' + image_name, 'wb') as file:
+        with open('generated/Однорядный/' + image_name, 'wb') as file:
             for chunk in image.iter_content(chunk_size=1024):
                 if chunk:
                     file.write(chunk)
