@@ -13,4 +13,5 @@ response = requests.get(url, params={'q': query, 'tbm': 'isch'}, headers=headers
 soup = BeautifulSoup(response.text, 'lxml')
 
 a = soup.find_all('a', class_='rg_l')
-print(len(a))
+
+
